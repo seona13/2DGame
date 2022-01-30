@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     float _moveSpeed;
     [SerializeField]
+    float _jumpForce;
+    [SerializeField]
     Rigidbody2D _rig;
 
 
@@ -26,6 +28,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && IsGrounded())
+        {
+            _rig.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+		}
     }
+
+
+    bool IsGrounded()
+	{
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0,-0.1f,0), Vector2.down, 0.2f);
+
+        return hit.collider != null;
+	}
 }

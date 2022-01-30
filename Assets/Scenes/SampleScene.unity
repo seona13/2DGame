@@ -700,4 +700,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 4
+  _jumpForce: 5
   _rig: {fileID: 1142938080}
