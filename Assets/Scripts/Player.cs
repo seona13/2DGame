@@ -14,17 +14,21 @@ public class Player : MonoBehaviour
     Rigidbody2D _rig;
     [SerializeField]
     SpriteRenderer _sr;
+    [SerializeField]
+    int _score;
 
 
 	void OnEnable()
 	{
         Enemy.onPlayerCollision += GameOver;
+        Gem.onGemCollected += AddScore;
 	}
 
 
 	void onDisable()
 	{
         Enemy.onPlayerCollision -= GameOver;
+        Gem.onGemCollected -= AddScore;
 	}
 
 
@@ -70,5 +74,11 @@ public class Player : MonoBehaviour
     void GameOver()
 	{
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+
+
+    void AddScore(int amount)
+	{
+        _score += amount;
 	}
 }
