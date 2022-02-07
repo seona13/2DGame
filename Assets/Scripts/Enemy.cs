@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class Enemy : MonoBehaviour
 {
+    public static event Action onPlayerCollision;
+
     [SerializeField]
     Vector3 _targetPos;
     Vector3 _startPos;
@@ -41,4 +44,13 @@ public class Enemy : MonoBehaviour
 			}
         }
     }
+
+
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if (other.gameObject.CompareTag("Player"))
+		{
+            onPlayerCollision?.Invoke();
+		}
+	}
 }
