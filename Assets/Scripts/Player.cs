@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     float _jumpForce;
     [SerializeField]
     Rigidbody2D _rig;
+    [SerializeField]
+    SpriteRenderer _sr;
 
 
 	void OnEnable()
@@ -44,6 +46,15 @@ public class Player : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && IsGrounded())
         {
             _rig.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+		}
+
+        if (_rig.velocity.x > 0)
+		{
+            _sr.flipX = false;
+		}
+        else if (_rig.velocity.x < 0)
+		{
+            _sr.flipX = true;
 		}
     }
 
