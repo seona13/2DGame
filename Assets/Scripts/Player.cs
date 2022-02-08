@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class Player : MonoBehaviour
 {
+    public static event Action<int> onScoreChange;
+
     [SerializeField]
     float _moveSpeed;
     [SerializeField]
@@ -34,11 +37,11 @@ public class Player : MonoBehaviour
 
 	void Start()
     {
-        
+        onScoreChange?.Invoke(0);
     }
 
 
-	void FixedUpdate()
+    void FixedUpdate()
 	{
         float xInput = Input.GetAxis("Horizontal");
         _rig.velocity = new Vector2(xInput * _moveSpeed, _rig.velocity.y);
@@ -80,5 +83,6 @@ public class Player : MonoBehaviour
     void AddScore(int amount)
 	{
         _score += amount;
+        onScoreChange?.Invoke(_score);
 	}
 }
